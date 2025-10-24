@@ -81,9 +81,9 @@ const InventoryControl: React.FC = () => {
         </div>
       </div>
 
-      <button className="useful-controls-button" onClick={() => setInfoVisible(true)}>
+      {/* <button className="useful-controls-button" onClick={() => setInfoVisible(true)}>
         <Info />
-      </button>
+      </button> */}
     </>
   );
 };
