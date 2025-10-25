@@ -376,6 +376,17 @@ button:active {
   }
 }
 
+.inventory-slot-number-t {
+  background-color: transparent;
+  color: black;
+  height: 150px;
+  border-top-left-radius: 0.25vh;
+  border-bottom-right-radius: 0.25vh;
+  padding: 0.3px;
+  font-size: 12px;
+  font-family: $mainFont;
+}
+
 .inventory-slot-label-box {
   background-color: $mainColor;
   color: $textColor;

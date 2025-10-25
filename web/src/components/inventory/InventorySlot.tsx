@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { DragSource, Inventory, InventoryType, Slot, SlotWithItem } from '../../typings';
 import { useDrag, useDragDropManager, useDrop } from 'react-dnd';
 import { useAppDispatch } from '../../store';
@@ -98,6 +98,17 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
     manager.dispatch({ type: 'dnd-core/END_DRAG' });
   });
 
+  const [lockedSlots, setLockedSlots] = useState<number[]>([]);
+
+  useNuiEvent("setLockedSlots", (data: { slots?: number[] } | false) => {
+    if (data && Array.isArray((data as any).slots)) {
+      setLockedSlots((data as any).slots);
+    } else {
+      setLockedSlots([]); // reset when false or invalid
+    }
+  });
+
+
   const connectRef = (element: HTMLDivElement) => drag(drop(element));
 
   const handleContext = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -172,6 +183,9 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
               <p>{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</p>
             </div>
           </div>
+          {inventoryType === 'player' && lockedSlots.includes(item.slot) && (
+            <div className="inventory-slot-number-t">🔒</div>
+          )}
           <div>
             {inventoryType !== 'shop' && item?.durability !== undefined && (
               <WeightBar percent={item.durability} durability />

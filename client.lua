@@ -285,6 +285,9 @@ function client.openInventory(inv, data)
             rightInventory = currentInventory
         }
     })
+	Wait(50)
+	local yettilockedslots = exports.yetti_lockedslot:GetLockedSlots()
+	SendNUIMessage({ action = 'setLockedSlots', data = { slots = yettilockedslots } })
 
 	VirtualPed.startClonedPedPreview(cache.ped, {
 		dict = "anim@heists@heist_corona@single_team",
